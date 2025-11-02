@@ -67,4 +67,4 @@ class StudentClassEnrollment(models.Model):
     academic_session = models.ForeignKey(AcademicSession, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.student.student_name} - {self.student_class.Class} in {self.academic_session.session}"
+        return f"{self.student.firstname} {self.student.surname} - {self.student_class.Class} in {self.academic_session.session}"
