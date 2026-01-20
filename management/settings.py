@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
-from decouple import config
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,11 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
-DEBUG_ENV = config('DEBUG_ENV', default=False, cast=bool)
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG_ENV = os.getenv('DEBUG_ENV', 'False') == 'True'
 
 
 if DEBUG_ENV:
@@ -112,7 +115,7 @@ else:
         'default': {
             'BACKEND': 'channels_redis.core.RedisChannelLayer',
             'CONFIG': {
-                "hosts": [(config('REDIS_URL', default='redis://'))],
+                "hosts": [(os.getenv('REDIS_URL', 'redis://'))],
             },
         },
     }
@@ -132,11 +135,11 @@ else:
     DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('NAME'),
-        'USER': config('USER'),
-        'PASSWORD': config('PASSWORD'),
-        'HOST': config('HOST'),
-        'PORT': config('PORT'),
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT'),
         }
     }
 
@@ -186,9 +189,9 @@ if DEBUG_ENV:
     MEDIA_URL= '/media/'
     MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 else:
-    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default='')
-    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY', default='')
-    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME', default='')
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID', default='')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY', default='')
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME', default='')
     AWS_S3_CUSTOM_DOMAIN='%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
     AWS_S3_OBJECT_PARAMETERS={'CacheControl':'max-age=86400'}
     AWS_S3_REGION_NAME = 'us-east-1'
@@ -253,4 +256,4 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-DJANGO_IMAGE_URL = config('DJANGO_IMAGE_URL', default='http://127.0.0.1:8000')
+DJANGO_IMAGE_URL = os.getenv('DJANGO_IMAGE_URL', default='http://127.0.0.1:8000')
