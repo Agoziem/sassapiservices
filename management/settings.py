@@ -32,7 +32,7 @@ DEBUG_ENV = config('DEBUG_ENV', default=False, cast=bool)
 if DEBUG_ENV:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
 else:
-    ALLOWED_HOSTS = ['sassaplication-production.up.railway.app', "api.standrewssecchoolobosi.com"]
+    ALLOWED_HOSTS = ['sassaplication-production.up.railway.app', "api.standrewssecschoolobosi.com"]
 
 
 # Application definition
