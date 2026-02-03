@@ -65,9 +65,7 @@ def updateResult(request, result_id):
     data = request.data
     try:
         result = SubjectResult.objects.get(id=result_id)
-        fields_to_update = ['FirstTest','FirstAss','MidTermTest'
-                            ,'Project','SecondAss','SecondTest'
-                            ,'Exam','is_offering']
+        fields_to_update = ['CA', 'Exam', 'is_offering']
         for field in fields_to_update:
             if field in data:
                 setattr(result, field, data[field])
