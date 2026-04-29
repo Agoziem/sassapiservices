@@ -16,7 +16,9 @@ class ResultSummary(models.Model):
 
 
 	def __str__(self):
-		return str(self.Student_name.firstname+"-"+self.Student_name.student_class.Class+"-"+self.Term.term+"-"+self.AcademicSession.session)
+		term = self.Term.term if self.Term else "No Term"
+		session = self.AcademicSession.session if self.AcademicSession else "No Session"
+		return str(self.Student_name.firstname+"-"+self.Student_name.student_class.Class+"-"+term+"-"+session)
 
 #Model for Students Subject Results
 class SubjectResult(models.Model):
@@ -43,7 +45,8 @@ class SubjectResult(models.Model):
 
 
 	def __str__(self):
-		return str(self.student.firstname + " - " + self.Subject.subject_name+' '+ self.Term.term)
+		term = self.Term.term if self.Term else "No Term"
+		return str(self.student.firstname + " - " + self.Subject.subject_name+' '+ term)
 
 	
 
@@ -60,7 +63,8 @@ class AnnualResultSummary(models.Model):
 	published = models.BooleanField(default=False)
 
 	def __str__(self):
-		return str(self.Student_name.firstname +"-"+ self.Student_name.student_class.Class + " "+ self.AcademicSession.session)
+		session = self.AcademicSession.session if self.AcademicSession else "No Session"
+		return str(self.Student_name.firstname +"-"+ self.Student_name.student_class.Class + " "+ session)
 
 # Model for Annual Students Subject Results
 class AnnualSubjectResult(models.Model):
@@ -79,4 +83,5 @@ class AnnualSubjectResult(models.Model):
 	published = models.BooleanField(default=False)
 	
 	def __str__(self):
-		return str(self.student.firstname +"-"+ self.Subject.subject_name+" "+ self.AcademicSession.session)
+		session = self.AcademicSession.session if self.AcademicSession else "No Session"
+		return str(self.student.firstname +"-"+ self.Subject.subject_name+" "+ session)
