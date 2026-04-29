@@ -18,7 +18,7 @@ class ResultSummary(models.Model):
 	def __str__(self):
 		term = self.Term.term if self.Term else "No Term"
 		session = self.AcademicSession.session if self.AcademicSession else "No Session"
-		return str(self.Student_name.firstname+"-"+self.Student_name.student_class.Class+"-"+term+"-"+session)
+		return str(self.Student_name.firstname+"-"+term+"-"+session)
 
 #Model for Students Subject Results
 class SubjectResult(models.Model):
@@ -64,7 +64,7 @@ class AnnualResultSummary(models.Model):
 
 	def __str__(self):
 		session = self.AcademicSession.session if self.AcademicSession else "No Session"
-		return str(self.Student_name.firstname +"-"+ self.Student_name.student_class.Class + " "+ session)
+		return str(self.Student_name.firstname + " "+ session)
 
 # Model for Annual Students Subject Results
 class AnnualSubjectResult(models.Model):
